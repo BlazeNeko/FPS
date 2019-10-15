@@ -34,7 +34,11 @@ public class Health : MonoBehaviour {
     {
 
         ///  // ## TO-DO 1 si la salud inicial es menor que 0 enviar mensaje void OnDeath() por si a alguien le interesa..
-
+        m_CurrentHealth -= amount;
+        if (m_CurrentHealth <= 0)
+        {
+            this.gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+        }
 
     }
 

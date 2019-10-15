@@ -79,6 +79,7 @@ public class Door : MonoBehaviour {
             m_audio.Play();
             m_remainingTime = animationDuration;
         }
+
     }
 
     public void Close()
@@ -129,7 +130,11 @@ public class Door : MonoBehaviour {
         {
             // ## TO-DO 4: Mecanismo de seguridad para evitar que se quede la puerta abierta.
             //si habiendo pasado el tiempo con la puerta abierta, alguien ha habandonado el trigger, la volvemos a cerrar
-
+            if (m_state == State.OPEN && triggerErrorTime <= 0)
+            {
+                m_numElementsInTrigger = 0;
+                Close();
+            }
         }
     }
 }
