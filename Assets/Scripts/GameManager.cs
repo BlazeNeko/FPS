@@ -93,7 +93,9 @@ public class GameManager : MonoBehaviour {
         // Colocamos al player en el punto de spawn actual
         // ## TO-DO 2 - Teletransportar al player al ultimo punto de reespawn y reestaurar su vida. Activar y desactivar el Character Contorller para que este no restee la posición.
         m_Player.enabled = false;
-        m_Player.gameObject = GameObject.FindGameObjectWithTag < "Respawn" >.transform;
+        m_Player.GetComponent<Health>().ResetHelth();
+        m_Player.transform.position = m_CurrentSpawnPoint.position;
+        m_Player.transform.rotation = m_CurrentSpawnPoint.rotation;
         m_Player.enabled = true;
     }
 	

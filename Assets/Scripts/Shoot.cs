@@ -30,7 +30,6 @@ public class Shoot : MonoBehaviour
     /// <summary>
     /// Tiempo transcurrido entre disparos
     /// </summary>
-    [System.NonSerialized]
 	public float m_TimeBetweenShots = 0.25f;
 	
 	/// <summary>
@@ -91,7 +90,7 @@ public class Shoot : MonoBehaviour
 
         //  ## TO-DO 4 - Actualizar el contador m_TimeSinceLastShot ## 
         // Para ello, habrá que sumarle el tiempo de ejecución del anterior frame
-
+        m_TimeSinceLastShot += Time.deltaTime;
 
         if (GetFireButton())
 		{
@@ -99,10 +98,13 @@ public class Shoot : MonoBehaviour
             {
                 // ## TO-DO 5 - En función de si hay proyectil o no, usar la función de disparo
                 // con proyectil, o la de disparo con rayo ## 
-
-				ShootProjectile();
-                // ## TO-DO 6 - Reiniciar el contador m_TimeSinceLastShot ## 
-
+                if (m_projectile)
+                    ShootProjectile();
+                else
+                    ShootRay();
+                 // ## TO-DO 6 - Reiniciar el contador m_TimeSinceLastShot ## 
+                 m_TimeSinceLastShot = 0;
+                
             }
 
             if (!m_IsShooting)
@@ -110,15 +112,16 @@ public class Shoot : MonoBehaviour
                 m_IsShooting = true;
 
                 // ## TO-DO 7 Poner sonido de disparo.
+                audioSource.PlayOneShot(m_ShootAudio);
 
             }
-		}
+        }
         else if (m_IsShooting)
         {
             m_IsShooting = false;
 
             // ## TO-DO 8 Parar sonido de disparo.
-
+            audioSource.Stop();
         }
 
     }
@@ -132,7 +135,10 @@ public class Shoot : MonoBehaviour
 	private bool CanShoot()
 	{
         //  ## TO-DO 8 - Comprobar si puedo disparar #
-        return true;
+        if(m_TimeSinceLastShot >= m_TimeBetweenShots)
+            return true;
+        else
+            return false;
 	}
 	
     /// <summary>
@@ -178,7 +184,9 @@ public class Shoot : MonoBehaviour
         // 1.- Lanzar un rayo utlizando para ello el módulo de física -> pista Physics.Ra...
         // 2.- Aplicar una fuerza en el punto de impacto.
         // 3.- Colocar particulas de chispas en el punto de impacto -> pista Instanciamos pero no nos preocupasmo del destroy porque el asset puede autodestruirse (componente particle animator).
-        
+        RaycastHit hit;
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit)) ;
+
     }
 
     //## TO-DO 3 Mostrar un puntero laser con la dirección de disparo.
@@ -186,7 +194,7 @@ public class Shoot : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (m_ShootPoint != null)
-            Debug.DrawRay(m_ShootPoint.position, m_ShootPoint.forward * 2f, Color.red);
+            Debug.DrawRay(m_ShootPoint.position, m_ShootPoint.forward * 4f, Color.red);
     }
 
     #endregion
