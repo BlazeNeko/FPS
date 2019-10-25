@@ -30,24 +30,44 @@ public class WeaponManager : MonoBehaviour {
 	void Start () {
 
         // ## TO-DO 1 - Activar el primer arma de la lista, y establecerlo como arma activa. Pista: m_Weapons[0] ##
-
+        m_Weapons[m_DefaultWeaponIndex].SetActive(true);
+        m_ActiveWeapon = m_Weapons[0];
     }
-	
-	// En el método Update estaremos leyendo de la entrada de usuario para ver qué tecla
-	// se pulsa. En caso de ser alguna numérica, gestionaremos las armas, teniendo cuidado
-	// de que sólo haya un arma activa en cada momento
-	void Update () {
-		
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-            // ## TO-DO 3 - Llamar a ManageWeapon con el índice adecuado (0)
+
+    // En el método Update estaremos leyendo de la entrada de usuario para ver qué tecla
+    // se pulsa. En caso de ser alguna numérica, gestionaremos las armas, teniendo cuidado
+    // de que sólo haya un arma activa en cada momento
+    void Update() {
+
+        var input = Input.inputString;
+        switch (input) {
+
+            case "1":
+                // ## TO-DO 3 - Llamar a ManageWeapon con el índice adecuado (0)
+                ManageWeapon(0);
+                break;
+            case "2":		
+                // ## TO-DO 4 - Llamar a ManageWeapon con el índice adecuado (1)
+                ManageWeapon(1);
+                break;
+            case "3":
+                ManageWeapon(2);
+                break;
+            case "4":
+                ManageWeapon(3);
+                break;
+            case "5":
+                ManageWeapon(4);
+                break;
 
         }
-		else if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-            // ## TO-DO 4 - Llamar a ManageWeapon con el índice adecuado (1)
 
-        }
+        /*      else if (Input.GetKeyDown(KeyCode.Alpha2))
+                      {
+                          // ## TO-DO 4 - Llamar a ManageWeapon con el índice adecuado (1)
+                          ManageWeapon(1);
+                      }*/
+
     }
 
     // Dicho número indicará el índice del arma que se quiere activar/desacivar
@@ -56,12 +76,14 @@ public class WeaponManager : MonoBehaviour {
         // ## TO-DO 2
         // Activar el arma correspondiente (sólo si la que se quiere activar, NO es la activa)
         // Pista: m_Weapons[index]
-        // ---
-        // Desactivar el que estaba activo
-        // Pista: Activar/Desactivar = m_ActiveWeapon.SetActiveRec...
-        // ---
-        // Actualizar m_ActiveWeapon
-
-
+        if (m_ActiveWeapon != m_Weapons[index])
+        {
+            m_Weapons[index].SetActive(true);
+            // Desactivar el que estaba activo
+            // Pista: Activar/Desactivar = m_ActiveWeapon.SetActiveRec...
+            m_ActiveWeapon.SetActive(false);
+            // Actualizar m_ActiveWeapon
+            m_ActiveWeapon = m_Weapons[index];
+        }
     }
 }

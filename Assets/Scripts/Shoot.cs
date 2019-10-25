@@ -31,11 +31,11 @@ public class Shoot : MonoBehaviour
     /// Tiempo transcurrido entre disparos
     /// </summary>
 	public float m_TimeBetweenShots = 0.25f;
-	
-	/// <summary>
-	/// Booleano para indicar si el arma es automática
-	/// </summary>
-	public bool m_IsAutomatic = false;
+
+    /// <summary>
+    /// Booleano para indicar si el arma es automática
+    /// </summary>
+    public bool m_IsAutomatic = false;
 
     /// <summary>
     /// Particulas que saltan cuando un arma sin proyectil acierta en algo.
@@ -60,19 +60,35 @@ public class Shoot : MonoBehaviour
     #endregion
 
     #region Non exposed fields
-	
-	/// <summary>
-	/// Tiempo transcurrido desde el último disparo
-	/// </summary>
-	private float m_TimeSinceLastShot = 0;
+
+    /// <summary>
+    /// Tiempo transcurrido desde el último disparo
+    /// </summary>
+    private float m_TimeSinceLastShot = 0;
 
     /// <summary>
     /// Indica si estamos disparando (util en modo automático).
     /// </summary>
     private bool m_IsShooting = false;
 
-    private AudioSource audioSource=null;
+    private AudioSource audioSource = null;
 
+    /// <summary>
+    /// Retroceso máximo.
+    /// </summary>
+    public float m_maxRecoil_x = 20;
+
+    public float m_maxRecoil_y = 20;
+
+
+    /// <summary>
+    /// Velocidad del retroceso.
+    /// </summary>
+    public float m_recoilSpeed  = 10;
+
+    private float m_recoil = 0;
+
+    private Transform m_recoilTransform = null;
     #endregion
 
     #region Monobehaviour Calls
@@ -80,11 +96,13 @@ public class Shoot : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        m_recoilTransform = transform;
     }
     /// <summary>
     /// En el método Update se consultará al Input si se ha pulsado el botón de disparo
     /// </summary>
-    void Update () {
+    void Update()
+    {
 
         // Será necesario llevar cuenta del tiempo transcurrido
 
@@ -93,7 +111,7 @@ public class Shoot : MonoBehaviour
         m_TimeSinceLastShot += Time.deltaTime;
 
         if (GetFireButton())
-		{
+        {
             if (CanShoot())
             {
                 // ## TO-DO 5 - En función de si hay proyectil o no, usar la función de disparo
@@ -102,9 +120,9 @@ public class Shoot : MonoBehaviour
                     ShootProjectile();
                 else
                     ShootRay();
-                 // ## TO-DO 6 - Reiniciar el contador m_TimeSinceLastShot ## 
-                 m_TimeSinceLastShot = 0;
-                
+                // ## TO-DO 6 - Reiniciar el contador m_TimeSinceLastShot ## 
+                m_TimeSinceLastShot = 0;
+
             }
 
             if (!m_IsShooting)
@@ -125,28 +143,28 @@ public class Shoot : MonoBehaviour
         }
 
     }
-	
-	// 
+
+    // 
     /// <summary>
     /// En esta función comprobamos si el tiempo que ha pasado desde la última vez que disparamos
     /// es suficiente para que nos dejen volver a disparar 
     /// </summary>
     /// <returns>true si puede disparar y falso si no puede.</returns>
-	private bool CanShoot()
-	{
+    private bool CanShoot()
+    {
         //  ## TO-DO 8 - Comprobar si puedo disparar #
-        if(m_TimeSinceLastShot >= m_TimeBetweenShots)
+        if (m_TimeSinceLastShot >= m_TimeBetweenShots)
             return true;
         else
             return false;
-	}
-	
+    }
+
     /// <summary>
     /// Devuelve si se ha pulsado el botón de disparo
     /// </summary>
     /// <returns>true si puede disparar y falso si no puede.</returns>
-	private bool GetFireButton()
-	{
+    private bool GetFireButton()
+    {
         //Obtener el botón de disparo. Si es automático se pulsará GetButton y si no, GetButtonDown. El botón que usamoremos es "Fire"
         //  ## TO-DO 1 ## 
 
@@ -155,14 +173,13 @@ public class Shoot : MonoBehaviour
         else
             return Input.GetButtonDown("Fire1");
 
-        return false;
     }
-	
+
     /// <summary>
     /// Disparamos un proyectil.
     /// </summary>
-	private void ShootProjectile()
-	{
+    private void ShootProjectile()
+    {
         // TO-DO 2
         // 1.- Instanciar el proyectil pasado como variable pública de la clase, en la posición y rotación del punto de disparo "m_projectile"
         // 1.2.- Guardarse el objeto devuelto en una variable de tipo Rigidbody
@@ -173,7 +190,7 @@ public class Shoot : MonoBehaviour
         Collider projectileCollider = project.GetComponent<Collider>();
         Collider myCollider = transform.root.GetComponent<Collider>();
         Physics.IgnoreCollision(projectileCollider, myCollider);
-	}
+    }
 
     /// <summary>
     /// Disparamos usando un rayo.
@@ -185,7 +202,11 @@ public class Shoot : MonoBehaviour
         // 2.- Aplicar una fuerza en el punto de impacto.
         // 3.- Colocar particulas de chispas en el punto de impacto -> pista Instanciamos pero no nos preocupasmo del destroy porque el asset puede autodestruirse (componente particle animator).
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit)) ;
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit))
+        {
+            hit.rigidbody.AddForceAtPosition((hit.point - transform.position), hit.point, ForceMode.Impulse);
+            OnDrawGizmos();
+        }
 
     }
 
@@ -198,4 +219,5 @@ public class Shoot : MonoBehaviour
     }
 
     #endregion
+
 }
