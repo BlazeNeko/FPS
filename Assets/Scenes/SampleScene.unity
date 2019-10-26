@@ -195,13 +195,11 @@ MonoBehaviour:
   m_ShootPoint: {fileID: 1994691518}
   m_TimeBetweenShots: 0.25
   m_IsAutomatic: 0
-  m_Sparkles: {fileID: 100000, guid: b99a0a5998b2736429fd2a2fd1d01c5e, type: 3}
+  m_Sparkles: {fileID: 6499451239139374483, guid: 287abac0cb6007a489240aa678ceb0c4,
+    type: 3}
   m_ShootRange: 100
   m_ShootForce: 10
   m_ShootAudio: {fileID: 8300000, guid: 4887a2689eccf774984bd076990ddd09, type: 3}
-  m_maxRecoil_x: -20
-  m_maxRecoil_y: 20
-  m_recoilSpeed: 10
 --- !u!82 &172353851
 AudioSource:
   m_ObjectHideFlags: 0
@@ -380,9 +378,6 @@ MonoBehaviour:
   m_ShootRange: 100
   m_ShootForce: 10
   m_ShootAudio: {fileID: 8300000, guid: 4887a2689eccf774984bd076990ddd09, type: 3}
-  m_maxRecoil_x: 20
-  m_maxRecoil_y: 20
-  m_recoilSpeed: 10
 --- !u!82 &265123509
 AudioSource:
   m_ObjectHideFlags: 0
@@ -707,7 +702,7 @@ PrefabInstance:
     - target: {fileID: 3069201009742288750, guid: 1b50e5dc297da054cbae34ed97042497,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3069201009742288750, guid: 1b50e5dc297da054cbae34ed97042497,
         type: 3}
@@ -781,7 +776,7 @@ PrefabInstance:
     - target: {fileID: 6896340531019792280, guid: 049fbab0c2d0a4341b6a07d48e43e3dc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6896340531019792280, guid: 049fbab0c2d0a4341b6a07d48e43e3dc,
         type: 3}
@@ -948,9 +943,6 @@ MonoBehaviour:
   m_ShootRange: 100
   m_ShootForce: 10
   m_ShootAudio: {fileID: 8300000, guid: 4887a2689eccf774984bd076990ddd09, type: 3}
-  m_maxRecoil_x: 20
-  m_maxRecoil_y: 20
-  m_recoilSpeed: 10
 --- !u!82 &664944272
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1138,6 +1130,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50.000004, y: 31.411001, z: 0}
+--- !u!1 &771620779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 54bf132e153746141b2b4dcb3cd02d66,
+    type: 3}
+  m_PrefabInstance: {fileID: 2101939320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &771620780
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771620779}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &854621203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7388175500916433710, guid: 3857d0c432aa1ea4aaa03ab01c87a306,
@@ -1343,7 +1357,7 @@ PrefabInstance:
     - target: {fileID: 7388175500916433710, guid: 3857d0c432aa1ea4aaa03ab01c87a306,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7388175500916433710, guid: 3857d0c432aa1ea4aaa03ab01c87a306,
         type: 3}
@@ -1928,9 +1942,6 @@ MonoBehaviour:
   m_ShootRange: 100
   m_ShootForce: 10
   m_ShootAudio: {fileID: 8300000, guid: 4887a2689eccf774984bd076990ddd09, type: 3}
-  m_maxRecoil_x: 20
-  m_maxRecoil_y: 20
-  m_recoilSpeed: 10
 --- !u!82 &1052454128
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2146,7 +2157,7 @@ PrefabInstance:
     - target: {fileID: 2390982859125460255, guid: 69344d64564091d4a8ce57826a00b63f,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9145932704222669727, guid: 69344d64564091d4a8ce57826a00b63f,
         type: 3}
@@ -2186,7 +2197,7 @@ PrefabInstance:
     - target: {fileID: 9145932704222669727, guid: 69344d64564091d4a8ce57826a00b63f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9145932704222669727, guid: 69344d64564091d4a8ce57826a00b63f,
         type: 3}
@@ -3127,7 +3138,7 @@ PrefabInstance:
     - target: {fileID: 1709219435847184916, guid: cf60f6ef00c7c87479bb81be518b8a8a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1709219435847184916, guid: cf60f6ef00c7c87479bb81be518b8a8a,
         type: 3}
@@ -7132,9 +7143,6 @@ MonoBehaviour:
   m_ShootRange: 100
   m_ShootForce: 10
   m_ShootAudio: {fileID: 8300000, guid: 4887a2689eccf774984bd076990ddd09, type: 3}
-  m_maxRecoil_x: 20
-  m_maxRecoil_y: 20
-  m_recoilSpeed: 10
 --- !u!82 &1733752634
 AudioSource:
   m_ObjectHideFlags: 0

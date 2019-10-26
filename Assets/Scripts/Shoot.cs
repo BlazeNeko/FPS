@@ -73,22 +73,6 @@ public class Shoot : MonoBehaviour
 
     private AudioSource audioSource = null;
 
-    /// <summary>
-    /// Retroceso máximo.
-    /// </summary>
-    public float m_maxRecoil_x = 20;
-
-    public float m_maxRecoil_y = 20;
-
-
-    /// <summary>
-    /// Velocidad del retroceso.
-    /// </summary>
-    public float m_recoilSpeed  = 10;
-
-    private float m_recoil = 0;
-
-    private Transform m_recoilTransform = null;
     #endregion
 
     #region Monobehaviour Calls
@@ -96,7 +80,6 @@ public class Shoot : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        m_recoilTransform = transform;
     }
     /// <summary>
     /// En el método Update se consultará al Input si se ha pulsado el botón de disparo
@@ -206,7 +189,10 @@ public class Shoot : MonoBehaviour
         {
             hit.rigidbody.AddForceAtPosition((hit.point - transform.position), hit.point, ForceMode.Impulse);
             OnDrawGizmos();
+
+            Instantiate(m_Sparkles, hit.point, Quaternion.Euler(0,0,0));
         }
+
 
     }
 
